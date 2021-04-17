@@ -2,8 +2,8 @@ from os import system
 from time import sleep
 import numpy as np
 
-"""TODO: 1. CREATE MAIN FUNCTION
-		 2. FIX THE MULTIPLIED MATRICES RESULT
+"""TODO: 1. CREATE MAIN FUNCTION (DONE).
+		 2. FIX THE MULTIPLIED MATRICES RESULT (DONE).
 		 3. CREATE A FEATURE TO CONTINUES MULTIPLIED THE MULTIPLIED MATRIX.
 		 4. FIX INPUT ANIMATIONS."""
 
@@ -17,7 +17,6 @@ def multiply(matrix1, matrix2):
 	while (m1_index < rows):
 		if not dot_product or dot_product[-1] == '+':
 			try:
-				#print(F"M1 = {matrix1[m1_index][index]} x {matrix2[index][m2_index]} = M2")
 				dot_product += str(matrix1[m1_index][index] * matrix2[index][m2_index])
 				index += 1
 			except:
@@ -38,7 +37,6 @@ def multiply(matrix1, matrix2):
 			m2_index = 0
 			counter = 0
 	
-		#print(f"m2_index: {m2_index}, length m2= {len(matrix2[0])}Counter= {counter}, Rows: {rows}, Cols: {cols}\n")
 	return np.array(result).reshape(rows, cols)
 
 def generate_dimensions():
@@ -51,13 +49,28 @@ def generate_dimensions():
 		dimensions = generate_dimensions()
 	return dimensions
 
-def print_matrix(matrix, index=0):
+def print_matrix(matrix1,matrix2=None,matrix3=None, index=0):
 	CLEAR_SCREEN()
 	if index:
 		print(f"Matrix {index} has been created:")
 
-	for rows in matrix: 
-		print(f"\t{rows}")
+	if matrix1 and matrix2 and matrix3:
+		for index in range(1, 4):
+			current_matrix = f'matrix{index}'
+			for rows in locals()[current_matrix]:
+				if isinstance(locals()[current_matrix], list):
+					locals()[current_matrix] = str(rows).replace(',', ' ')
+					print(locals()[current_matrix], type(locals()[current_matrix]))
+				else:
+					locals()[current_matrix] += f"\n{str(rows).replace(',', ' ')}"
+					print(locals()[current_matrix], type(locals()[current_matrix]))
+	else:
+		for rows in matrix1:
+			print(f'{rows}')
+	
+	#print(f"{matrix1}{matrix2} = {matrix3}")
+
+
 
 def fill_columns(index, dimension):
 	CLEAR_SCREEN()
@@ -87,9 +100,11 @@ def fill_rows(dimensions):
 
 def main():
 	dimensions = generate_dimensions()
-	m1, m2 = fill_rows(dimensions)
-	result = multiply(m1,m2).tolist()
-	print_matrix(result)
+	print(fill_rows(dimensions))
+	#print(m1,m2)
+	#result = multiply(m1,m2).tolist()
+	
+
 
 
 if __name__ == '__main__':
