@@ -32,10 +32,7 @@ def multiply(matrix1, matrix2):
 			m2_index = 0
 			counter = 0
 	
-	if len(result) <= 2:
-		print(result)
-	else:
-		return np.array(result).reshape(rows, cols)
+	return np.array(result).reshape(rows, cols)
 
 def print_matrix(matrix1,matrix2=None,matrix3=None, index=0):
 	CLEAR_SCREEN()
